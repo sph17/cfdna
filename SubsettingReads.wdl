@@ -83,7 +83,7 @@ task samtoolsViewSubset {
   
         # only keep reads of insert sizes between 200 and 500 from a BAM file and write the reads that fulfil the condition to another file
         samtools view -h ~{bam_file} | \
-        awk -v lower_bound=~{lower_bound_length} -v upper_bound=~{upper_bound_length}'substr($0,1,1)=="@" || ($9>= lower_bound && $9<=upper_bound) || ($9<=-lower_bound && $9>=-upper_bound)' | \
+        awk -v lower_bound=~{lower_bound_length} -v upper_bound=~{upper_bound_length} 'substr($0,1,1)=="@" || ($9>= lower_bound && $9<=upper_bound) || ($9<=-lower_bound && $9>=-upper_bound)' | \
         samtools view -b > "~{bam_file_name}.~{subset_output_name}.bam" 
         
         # index bam file
