@@ -20,8 +20,8 @@ workflow SubsettingReads {
     Int? upper_bound_length
     String? subset_output_name
     String? samtools_option
-    File reference_fasta
-    File reference_index_file
+    File? reference_fasta
+    File? reference_index_file
 
     # Runtime configuration overrides
     RuntimeAttr? runtime_attr_samtools_view
@@ -33,7 +33,6 @@ workflow SubsettingReads {
         bam_file=bam_file,
         bam_index=bam_index,
         subset_output_name=subset_output_name,
-        samtools_options=samtools_options,
         reference_fasta=reference_fasta,
         reference_index_file=reference_index_file,
         runtime_attr_override = runtime_attr_samtools_view,
@@ -55,7 +54,6 @@ task samtoolsViewSubset {
         Int? upper_bound_length = select_first([upper_bound_length, 155])
         String subset_docker
         String subset_output_name = select_first([subset_output_name, "subset"])
-        String? samtools_options
         File? reference_fasta
         File? reference_index_file
         RuntimeAttr? runtime_attr_override
