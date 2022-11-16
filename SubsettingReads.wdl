@@ -9,6 +9,7 @@ workflow SubsettingReads {
 
     meta {
         author: "Stephanie Hao"
+        email: "shao@broadinstitute.org"
     }
 
     input {
@@ -18,8 +19,7 @@ workflow SubsettingReads {
     Int? lower_bound_length
     Int? upper_bound_length
     String? subset_output_name
-    String? samtools_options
-    String? region
+    String? samtools_option
     File reference_fasta
     File reference_index_file
 
@@ -34,7 +34,6 @@ workflow SubsettingReads {
         bam_index=bam_index,
         subset_output_name=subset_output_name,
         samtools_options=samtools_options,
-        region=region,
         reference_fasta=reference_fasta,
         reference_index_file=reference_index_file,
         runtime_attr_override = runtime_attr_samtools_view,
@@ -57,7 +56,6 @@ task samtoolsViewSubset {
         String subset_docker
         String subset_output_name = select_first([subset_output_name, "subset"])
         String? samtools_options
-        String? region
         File? reference_fasta
         File? reference_index_file
         RuntimeAttr? runtime_attr_override
